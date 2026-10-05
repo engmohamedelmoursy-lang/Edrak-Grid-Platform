@@ -1,41 +1,49 @@
-# [الجزء الأول] كود الإصلاح البصري الجذري لأشرطة التمرير والـ Sliders على السيرفر السحابي - RG ENERGY
+# [الجزء الأول] كود ضبط أشرطة التمرير والاتجاهات التصاعدية سحابياً - شركة RG ENERGY
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 1. الإعدادات القيادية الفخمة لتوسيع الواجهة
-st.set_page_config(page_title="RG ENERGY - Edrak Advanced Control", layout="wide", initial_sidebar_state="expanded")
+# 1. الإعدادات القيادية للمنصة وتوسيع الشاشة بالكامل
+st.set_page_config(page_title="RG ENERGY - Edrak Intelligent Control", layout="wide", initial_sidebar_state="expanded")
 
-# شفرة CSS السحابية المحدثة والمضمونة لكسر القيود وإبراز أرقام السلايدرز بالكامل ومنع الصناديق البيضاء
+# شفرة CSS المتقدمة السحابية لقفل اتجاه السلايدرز ومنع انقلاب قيم البداية والنهاية
 st.markdown("""
     <style>
-    /* التنسيق العام المظلم */
+    /* التنسيق العام المظلم والفاخر */
     .stApp { background-color: #060913 !important; color: #e6edf3 !important; font-family: sans-serif; }
     
-    /* فرض المحاذاة العربية من اليمين إلى اليسار للتبويبات والجداول والعناوين */
+    /* فرض المحاذاة العربية للمنصة من اليمين إلى اليسار */
     .stApp, div[data-testid='stTable'], .stTabs, div[role='tablist'], h1, h2, h3, p, li, div[data-testid='stMarkdownContainer'] {
         direction: RTL !important; text-align: right !important;
     }
     
-    /* تنسيق القائمة الجانبية ومنع تداخل الصناديق البيضاء */
+    /* تنسيق القائمة الجانبية وحفظ هويتها */
     div[data-testid='stSidebar'] { 
         direction: RTL !important; text-align: right !important; 
         background-color: #0b0f19 !important; border-left: 1px solid #1f2937 !important; 
     }
     div[data-testid='stSidebar'] [data-testid='stMarkdownContainer'] p { color: #00ffcc !important; font-weight: bold !important; }
     
-    /* 🛡️ التعديل الحاسم: إصلاح أرقام السلايدرز وإظهار قيم البداية والنهاية بلون نيون فسفوري ساطع 100% */
+    /* 🛡️ القفل الهندسي الجذري: إجبار حاوية السلايدر بالكامل على قراءة LTR لمنع انعكاس أرقام النطاقات */
+    div[data-testid='stSlider'] { 
+        direction: LTR !important; 
+        text-align: left !important; 
+    }
+    
+    /* تلوين أرقام البداية والنهاية والقيمة الحالية بلون نيون فسفوري ساطع 100% ومنع انقلابها */
     div[data-testid='stSlider'] span[data-baseweb='typography'] {
         color: #00ffcc !important;
         font-weight: bold !important;
         font-size: 15px !important;
+        direction: LTR !important;
+        display: inline-block !important;
         background-color: transparent !important;
     }
     div[data-testid='stSlider'] div[data-style] { background-color: #00ffcc !important; }
     div[data-testid='stSlider'] div[role='slider'] { background-color: #ffffff !important; border: 2px solid #00ffcc !important; box-shadow: 0 0 10px #00ffcc !important; }
     
-    /* كروت المؤشرات النيون المضيئة */
+    /* كروت المؤشرات الحيوية النيون */
     div[data-testid='stMetric'] {
         background-color: #0d1321 !important; border: 1px solid #1f2937 !important; border-radius: 12px !important;
         padding: 20px !important; box-shadow: 0 0 15px rgba(0, 255, 204, 0.15) !important;
@@ -44,7 +52,6 @@ st.markdown("""
     button[data-baseweb='tab'] { font-size: 16px !important; font-weight: bold !important; color: #8b949e !important; }
     button[aria-selected='true'] { color: #00ffcc !important; border-bottom-color: #00ffcc !important; }
     
-    /* كروت الأمان السيبراني */
     .cyber-command-card {
         background: linear-gradient(135deg, #0d1321 0%, #111a2e 100%) !important;
         border-right: 4px solid #00ffcc !important; border-top: 1px solid #1f2937 !important;
@@ -70,9 +77,9 @@ with tab1:
     ])
     fault_select = st.sidebar.selectbox('حدد المحطة المستهدفة بالمعالجة الآلية:', [f'Sub_{i}' for i in range(1, 11)], index=4)
     
-    # السلايدرز السحابية منسقة تصاعدياً وبأعلى مرونة للقراءة والاستجابة
+    # السلايدرز السحابية مضبوطة بدقة لتبدأ تصاعدياً من الأقل للأكبر هندسياً دون انعكاس
     input_temp = st.sidebar.slider('قراءة مستشعرات الحرارة (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
-    input_load = st.sidebar.slider('نسبة الحمل الكهربائي على الباص (%):', min_value=40, max_value=110, value=65 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 96, step=1)
+    input_load = st.sidebar.slider('نسبة الحمل الكهربائي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 96, step=1)
     
     is_fault_triggered = 0
     if simulation_mode == 'افتعال عطل وقصر كهربائي مفاجئ' or input_temp > 95 or input_load > 90:
@@ -98,7 +105,7 @@ with tab1:
         st.success('🟢 شبكة التوزيع آمنة وتعمل بكفاءة هندسية مطلقة؛ جميع خطوط التغذية والمحولات العشر تعمل ضمن النطاق الآمن.')
     st.markdown('<h3 style="color: #00ffcc;">🗺️ المخطط الهندسي لخطوط التغذية الحية ومسارات الشفاء الذاتي (Network Topology)</h3>', unsafe_allow_html=True)
     
-    # الإحداثيات الجغرافية الموزعة هندسياً لـ 10 محطات لمنع التداخل
+    # الإحداثيات الجغرافية الموزعة هندسياً لـ 10 محطات لمنع التداخل البصري
     station_lat = [24.470, 24.478, 24.465, 24.482, 24.473, 24.458, 24.488, 24.479, 24.462, 24.469]
     station_lon = [39.610, 39.616, 39.605, 39.622, 39.629, 39.601, 39.613, 39.625, 39.632, 39.598]
     substations_list = [f'Sub_{i}' for i in range(1, 11)]
