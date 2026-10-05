@@ -1,4 +1,4 @@
-# [الجزء الأول] كود معالجة السلايدرز السحابية ومنع انقطاع المسارات - شركة RG ENERGY
+# [الجزء الأول] كود التأسيس القياسي والمستقر لحركة أشرطة التمرير سحابياً - شركة RG ENERGY
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 # 1. الإعدادات القيادية للمنصة وتوسيع الشاشة بالكامل
 st.set_page_config(page_title="RG ENERGY - Edrak Intelligent Control", layout="wide", initial_sidebar_state="expanded")
 
-# شفرة CSS مطهرة ومبسطة ومضمونة تمنع الصناديق وتثبت النصوع اللوني الأبيض الناصع والنيون
+# شفرة CSS مطهرة ومبسطة تضمن المحاذاة العربية الكاملة وتترك السلايدرز تتحرك طردياً وبألوانها الطبيعية التفاعلية
 st.markdown("""
     <style>
-    /* التنسيق العام المظلم لغرف التحكم القيادية */
+    /* التنسيق العام المظلم والفاخر لغرف التحكم */
     .stApp { background-color: #060913 !important; color: #e6edf3 !important; font-family: sans-serif; }
     
     /* فرض المحاذاة العربية للمنصة من اليمين إلى اليسار للتبويبات والجداول والعناوين */
@@ -18,21 +18,13 @@ st.markdown("""
         direction: RTL !important; text-align: right !important;
     }
     
-    /* تنسيق القائمة الجانبية وحفظ هويتها */
+    /* تنسيق القائمة الجانبية المظلمة */
     div[data-testid='stSidebar'] { 
         direction: RTL !important; text-align: right !important; 
         background-color: #0b0f19 !important; border-left: 1px solid #1f2937 !important; 
     }
     
-    /* تلوين وإبراز أرقام السلايدرز بلون نيون فسفوري واضح دون تداخل مع المسار */
-    div[data-testid='stSlider'] span[data-baseweb='typography'] {
-        color: #00ffcc !important;
-        font-weight: bold !important;
-        font-size: 15px !important;
-        background-color: transparent !important;
-    }
-    
-    /* كروت المؤشرات الحيوية النيون */
+    /* كروت المؤشرات الحيوية الفخمة */
     div[data-testid='stMetric'] {
         background-color: #0d1321 !important; border: 1px solid #1f2937 !important; border-radius: 12px !important;
         padding: 20px !important; box-shadow: 0 0 15px rgba(0, 255, 204, 0.15) !important;
@@ -41,7 +33,7 @@ st.markdown("""
     button[data-baseweb='tab'] { font-size: 16px !important; font-weight: bold !important; color: #8b949e !important; }
     button[aria-selected='true'] { color: #00ffcc !important; border-bottom-color: #00ffcc !important; }
     
-    /* كروت الأمن السيبراني عالية النصوع للكلام */
+    /* كروت الأمن السيبراني عالية النصوع */
     .cyber-command-card {
         background: linear-gradient(135deg, #0d1321 0%, #111a2e 100%) !important;
         border-right: 4px solid #00ffcc !important; border-top: 1px solid #1f2937 !important;
@@ -67,10 +59,9 @@ with tab1:
     ])
     fault_select = st.sidebar.selectbox('حدد المحطة المستهدفة بالمعالجة الآلية:', [f'Sub_{i}' for i in range(1, 11)], index=4)
     
-    # 🛡️ حقن نظام حاوية قفل الاتجاه الأصيل سحابياً لربط مسار الخط بالدائرة ومنع الهرجلة والانقطاع البصري
-    with st.sidebar.container():
-        input_temp = st.slider('قراءة مستشعرات الحرارة (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
-        input_load = st.slider('نسبة الحمل الكهربائي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 95, step=1)
+    # الاعتماد الكلي على المعمارية القياسية والمستقرة لـ Streamlit دون شفرات تعاكس الاتجاه
+    input_temp = st.sidebar.slider('قراءة مستشعرات الحرارة (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
+    input_load = st.sidebar.slider('نسبة الحمل الكهربائي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 95, step=1)
     
     is_fault_triggered = 0
     if simulation_mode == 'افتعال عطل وقصر كهربائي مفاجئ' or input_temp > 95 or input_load > 90:
@@ -109,7 +100,7 @@ with tab1:
     # 1. رسم مسارات خطوط التغذية والربط الحلقي الملون
     for i in range(len(station_lat) - 1):
         if is_fault_triggered and (substations_list[i] == fault_select or substations_list[i+1] == fault_select):
-            c = '#ff3333'; l_style = '--'; l_width = 3.0  # وميض أحمر يعكس عزل منطقة العطل آلياً
+            c = '#ff3333'; l_style = '--'; l_width = 3.0  # وميض أحمر يعكس عزل منطقة الخلل آلياً
         else:
             c = '#00ffcc'; l_style = '-'; l_width = 2.0   # أخضر نيون يعكس تدفق أمثلة GAMS المستقرة
         ax_map.plot([station_lon[i], station_lon[i+1]], [station_lat[i], station_lat[i+1]], color=c, linestyle=l_style, linewidth=l_width, zorder=3)
