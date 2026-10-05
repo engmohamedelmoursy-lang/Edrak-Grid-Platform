@@ -1,4 +1,4 @@
-# [الجزء الأول] كود المعالجة النهائية لقفل حركة السلايدرز طردياً - شركة RG ENERGY
+# [الجزء الأول] كود معالجة السلايدرز السحابية ومنع انقطاع المسارات - شركة RG ENERGY
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 # 1. الإعدادات القيادية للمنصة وتوسيع الشاشة بالكامل
 st.set_page_config(page_title="RG ENERGY - Edrak Intelligent Control", layout="wide", initial_sidebar_state="expanded")
 
-# شفرة CSS المتقدمة والنهائية لإجبار شريط السحب والتلوين على التحرك الطردي السليم مع الأرقام
+# شفرة CSS مطهرة ومبسطة ومضمونة تمنع الصناديق وتثبت النصوع اللوني الأبيض الناصع والنيون
 st.markdown("""
     <style>
-    /* التنسيق العام المظلم والفاخر لغرف التحكم */
+    /* التنسيق العام المظلم لغرف التحكم القيادية */
     .stApp { background-color: #060913 !important; color: #e6edf3 !important; font-family: sans-serif; }
     
     /* فرض المحاذاة العربية للمنصة من اليمين إلى اليسار للتبويبات والجداول والعناوين */
@@ -18,35 +18,19 @@ st.markdown("""
         direction: RTL !important; text-align: right !important;
     }
     
-    /* تنسيق القائمة الجانبية المظلمة */
+    /* تنسيق القائمة الجانبية وحفظ هويتها */
     div[data-testid='stSidebar'] { 
         direction: RTL !important; text-align: right !important; 
         background-color: #0b0f19 !important; border-left: 1px solid #1f2937 !important; 
     }
-    div[data-testid='stSidebar'] [data-testid='stMarkdownContainer'] p { color: #00ffcc !important; font-weight: bold !important; }
     
-    /* 🛡️ القفل الهندسي الشامل: إجبار حاوية السلايدر والمسار اللوني والخطوط بالكامل على اتجاه LTR حتمي لتتحرك طردياً مع الأرقام */
-    div[data-testid='stSlider'] { 
-        direction: LTR !important; 
-        text-align: left !important;
-    }
-    div[data-testid='stSlider'] > div {
-        direction: LTR !important;
-    }
-    
-    /* ضبط أرقام النطاقات والقيم لتظهر بلون نيون فسفوري واضح وتنسيق تصاعدي من اليسار لليمين */
+    /* تلوين وإبراز أرقام السلايدرز بلون نيون فسفوري واضح دون تداخل مع المسار */
     div[data-testid='stSlider'] span[data-baseweb='typography'] {
         color: #00ffcc !important;
         font-weight: bold !important;
         font-size: 15px !important;
-        direction: LTR !important;
-        display: inline-block !important;
         background-color: transparent !important;
     }
-    
-    /* تأمين حركة مسار اللون الممتد ليتطابق مع القيمة تماماً طردياً زيادة ونقصاناً */
-    div[data-testid='stSlider'] div[data-style] { direction: LTR !important; background-color: #00ffcc !important; }
-    div[data-testid='stSlider'] div[role='slider'] { background-color: #ffffff !important; border: 2px solid #00ffcc !important; box-shadow: 0 0 10px #00ffcc !important; }
     
     /* كروت المؤشرات الحيوية النيون */
     div[data-testid='stMetric'] {
@@ -57,7 +41,7 @@ st.markdown("""
     button[data-baseweb='tab'] { font-size: 16px !important; font-weight: bold !important; color: #8b949e !important; }
     button[aria-selected='true'] { color: #00ffcc !important; border-bottom-color: #00ffcc !important; }
     
-    /* كروت الأمن السيبراني فخمة التباين والنصوع */
+    /* كروت الأمن السيبراني عالية النصوع للكلام */
     .cyber-command-card {
         background: linear-gradient(135deg, #0d1321 0%, #111a2e 100%) !important;
         border-right: 4px solid #00ffcc !important; border-top: 1px solid #1f2937 !important;
@@ -83,9 +67,10 @@ with tab1:
     ])
     fault_select = st.sidebar.selectbox('حدد المحطة المستهدفة بالمعالجة الآلية:', [f'Sub_{i}' for i in range(1, 11)], index=4)
     
-    # الـ Sliders السحابية الرقمية معزولة الاتجاه كلياً لتتحرك طردياً
-    input_temp = st.sidebar.slider('قراءة مستشعرات الحرارة (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
-    input_load = st.sidebar.slider('نسبة الحمل الكهربائي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 96, step=1)
+    # 🛡️ حقن نظام حاوية قفل الاتجاه الأصيل سحابياً لربط مسار الخط بالدائرة ومنع الهرجلة والانقطاع البصري
+    with st.sidebar.container():
+        input_temp = st.slider('قراءة مستشعرات الحرارة (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
+        input_load = st.slider('نسبة الحمل الكهربائي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 95, step=1)
     
     is_fault_triggered = 0
     if simulation_mode == 'افتعال عطل وقصر كهربائي مفاجئ' or input_temp > 95 or input_load > 90:
@@ -124,7 +109,7 @@ with tab1:
     # 1. رسم مسارات خطوط التغذية والربط الحلقي الملون
     for i in range(len(station_lat) - 1):
         if is_fault_triggered and (substations_list[i] == fault_select or substations_list[i+1] == fault_select):
-            c = '#ff3333'; l_style = '--'; l_width = 3.0  # وميض أحمر يعكس العزل التلقائي للأعطال
+            c = '#ff3333'; l_style = '--'; l_width = 3.0  # وميض أحمر يعكس عزل منطقة العطل آلياً
         else:
             c = '#00ffcc'; l_style = '-'; l_width = 2.0   # أخضر نيون يعكس تدفق أمثلة GAMS المستقرة
         ax_map.plot([station_lon[i], station_lon[i+1]], [station_lat[i], station_lat[i+1]], color=c, linestyle=l_style, linewidth=l_width, zorder=3)
@@ -144,7 +129,7 @@ with tab1:
     ax_map.axis('off')
     st.pyplot(fig_map)
     
-    # رسم منحنى مستويات اتزان الجهد الكهربائي لعقد الشبكة
+    # رسم منحنى استقرار الجهد
     st.write('### 📊 منحنى مستويات اتزان الجهد الكهربائي لعقد الشبكة (Voltage Profile Plot)')
     buses = [f'Node_{i}' for i in range(1, 11)]
     if is_fault_triggered:
