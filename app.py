@@ -1,19 +1,19 @@
-# [الجزء الأول] كود الإصلاح البصري الجذري لقفل اتجاه السلايدرز طردياً - شركة RG ENERGY
+# [الجزء الأول] كود التأسيس السحابي المطهّر لتفعيل حركة السلايدرز التلقائية - شركة RG ENERGY
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
 # 1. الإعدادات القيادية للمنصة وتوسيع الشاشة بالكامل
-st.set_page_config(page_title="RG ENERGY - Edrak Advanced Control", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="RG ENERGY - Edrak Intelligent Control", layout="wide", initial_sidebar_state="expanded")
 
-# شفرة CSS المتقدمة والسحابية لقفل اتجاه السلايدرز طردياً مع الأرقام ومنع التداخل اللغوي
+# شفرة CSS مطهرة ومبسطة تضمن المحاذاة العربية الكاملة وتترك السلايدرز تتحرك طردياً وبألوانها الطبيعية التفاعلية
 st.markdown("""
     <style>
     /* التنسيق العام المظلم والفاخر لغرف التحكم */
     .stApp { background-color: #060913 !important; color: #e6edf3 !important; font-family: sans-serif; }
     
-    /* فرض المحاذاة العربية القياسية للمنصة من اليمين إلى اليسار للتبويبات والجداول */
+    /* فرض المحاذاة العربية للمنصة من اليمين إلى اليسار للتبويبات والجداول والعناوين */
     .stApp, div[data-testid='stTable'], .stTabs, div[role='tablist'], h1, h2, h3, p, li, div[data-testid='stMarkdownContainer'] {
         direction: RTL !important; text-align: right !important;
     }
@@ -23,29 +23,11 @@ st.markdown("""
         direction: RTL !important; text-align: right !important; 
         background-color: #0b0f19 !important; border-left: 1px solid #1f2937 !important; 
     }
-    div[data-testid='stSidebar'] [data-testid='stMarkdownContainer'] p { color: #00ffcc !important; font-weight: bold !important; }
     
-    /* 🛡️ القفل الهندسي المطلق: عزل السلايدر بالكامل وإجبار شريط السحب على التحرك طردياً من اليسار لليمين متزامناً مع الأرقام */
-    div[data-testid='stSlider'] { 
-        direction: LTR !important; 
-        text-align: left !important;
-        padding-left: 5px !important;
-        padding-right: 5px !important;
-    }
-    
-    /* تثبيت الأرقام والنطاقات بلون نيون فسفوري مضيء وموحد الاتجاه تصاعدياً */
-    div[data-testid='stSlider'] span[data-baseweb='typography'] {
-        color: #00ffcc !important;
-        font-weight: bold !important;
-        font-size: 15px !important;
+    /* 🛡️ قفل اتجاه الحاوية الجانبية للسلايدرز لتكون تصاعدية هندسياً من اليسار لليمين طردياً مع الأرقام */
+    div[data-testid='stSidebar'] div[data-testid='stSlider'] {
         direction: LTR !important;
-        display: inline-block !important;
-        background-color: transparent !important;
     }
-    
-    /* تلوين أشرطة التمرير والمؤشرات لتتحرك بمرونة نيون احترافية مع القيمة زيادة ونقصاناً */
-    div[data-testid='stSlider'] div[data-style] { background-color: #00ffcc !important; }
-    div[data-testid='stSlider'] div[role='slider'] { background-color: #ffffff !important; border: 2px solid #00ffcc !important; box-shadow: 0 0 10px #00ffcc !important; }
     
     /* كروت المؤشرات الحيوية الفخمة */
     div[data-testid='stMetric'] {
@@ -56,7 +38,7 @@ st.markdown("""
     button[data-baseweb='tab'] { font-size: 16px !important; font-weight: bold !important; color: #8b949e !important; }
     button[aria-selected='true'] { color: #00ffcc !important; border-bottom-color: #00ffcc !important; }
     
-    /* حاويات الأمن السيبراني عالية التباين والنصوع */
+    /* كروت الأمن السيبراني عالية النصوع */
     .cyber-command-card {
         background: linear-gradient(135deg, #0d1321 0%, #111a2e 100%) !important;
         border-right: 4px solid #00ffcc !important; border-top: 1px solid #1f2937 !important;
@@ -82,9 +64,9 @@ with tab1:
     ])
     fault_select = st.sidebar.selectbox('حدد المحطة المستهدفة بالمعالجة الآلية:', [f'Sub_{i}' for i in range(1, 11)], index=4)
     
-    # السلايدرز معزولة برمجياً لتبدأ تصاعدياً بطريقة صحيحة: الأقل في اليسار والأكبر في اليمين طردياً
+    # أشرطة التمرير الأصلية والتفاعلية 100% زيادة ونقصاناً طردياً مع الأرقام دون أي تعارض
     input_temp = st.sidebar.slider('قراءة مستشعرات الحرارة (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
-    input_load = st.sidebar.slider('نسبة الحمل الكهربائي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 96, step=1)
+    input_load = st.sidebar.slider('نسبة الحمل الكهربائي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 95, step=1)
     
     is_fault_triggered = 0
     if simulation_mode == 'افتعال عطل وقصر كهربائي مفاجئ' or input_temp > 95 or input_load > 90:
@@ -212,6 +194,6 @@ with tab3:
     </div>
     <div class='cyber-command-card'>
         <div class='cyber-card-title'>⚙️ 3. التحكم المحلي اللامركزي وقواطع الطوارئ (Edge Control Contingency)</div>
-        <div class='cyber-command-card-text' style='color: #ffffff !important; line-height: 1.7; text-align: right;'>عند الانقطاع التام والكامل للاتصال بغرفة التحكم المركزية، تمتلك قواطع الشبكة الذكية (Reclosers) والمفاتيح الميدانية القدرة الذاتية على تشغيل خوارزميات العزل محلياً وعزل القصر الكهربائي (Short Circuit) حماية للمحولات المليونية والالتزام التام بضوابط الهيئة السعودية لتنظيم الكهرباء.</div>
+        <div class='cyber-command-card-text' style='color: #ffffff !important; line-height: 1.7; text-align: right;'>عند الانقطاع التام والكامل للاتصال بغرفة التحكم المركزية، تمتلك قواطع الشبكة الذكية (Reclosers) والمفاتيح الميدانية القدرة الذاتية على تشغيل خوارزميات العزل محلياً وعزل القصر الكهربائي (Short Circuit) حماية للمحولات المليونية واللتزام التام بضوابط الهيئة السعودية لتنظيم الكهرباء.</div>
     </div>
     ''', unsafe_allow_html=True)
