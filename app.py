@@ -1,4 +1,4 @@
-# [الجزء الأول] كود التأسيس القياسي والمستقر لحركة أشرطة التمرير سحابياً - شركة RG ENERGY
+# [الجزء الأول] كود التأسيس السحابي المطور بصناديق الإدخال الرقمية - شركة RG ENERGY
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # 1. الإعدادات القيادية للمنصة وتوسيع الشاشة بالكامل
 st.set_page_config(page_title="RG ENERGY - Edrak Intelligent Control", layout="wide", initial_sidebar_state="expanded")
 
-# شفرة CSS مطهرة ومبسطة تضمن المحاذاة العربية الكاملة وتترك السلايدرز تتحرك طردياً وبألوانها الطبيعية التفاعلية
+# شفرة CSS المتقدمة السحابية لحقن المظهر المظلم المضيء وتنسيق صناديق الإدخال والعدادات
 st.markdown("""
     <style>
     /* التنسيق العام المظلم والفاخر لغرف التحكم */
@@ -18,13 +18,25 @@ st.markdown("""
         direction: RTL !important; text-align: right !important;
     }
     
-    /* تنسيق القائمة الجانبية المظلمة */
+    /* تنسيق القائمة الجانبية وحفظ هويتها */
     div[data-testid='stSidebar'] { 
         direction: RTL !important; text-align: right !important; 
         background-color: #0b0f19 !important; border-left: 1px solid #1f2937 !important; 
     }
+    div[data-testid='stSidebar'] [data-testid='stMarkdownContainer'] p { color: #00ffcc !important; font-weight: bold !important; }
     
-    /* كروت المؤشرات الحيوية الفخمة */
+    /* ⚡ تنسيق صناديق الإدخال الرقمية النيون لتظهر بأعلى فخامة بصرية وسهولة تامة في القراءة */
+    div[data-testid='stNumberInput'] input {
+        background-color: #0d1321 !important;
+        color: #00ffcc !important;
+        border: 1px solid #1f2937 !important;
+        border-radius: 6px !important;
+        font-weight: bold !important;
+        font-size: 16px !important;
+        text-align: center !important;
+    }
+    
+    /* كروت المؤشرات الحيوية النيون */
     div[data-testid='stMetric'] {
         background-color: #0d1321 !important; border: 1px solid #1f2937 !important; border-radius: 12px !important;
         padding: 20px !important; box-shadow: 0 0 15px rgba(0, 255, 204, 0.15) !important;
@@ -59,9 +71,9 @@ with tab1:
     ])
     fault_select = st.sidebar.selectbox('حدد المحطة المستهدفة بالمعالجة الآلية:', [f'Sub_{i}' for i in range(1, 11)], index=4)
     
-    # الاعتماد الكلي على المعمارية القياسية والمستقرة لـ Streamlit دون شفرات تعاكس الاتجاه
-    input_temp = st.sidebar.slider('قراءة مستشعرات الحرارة (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
-    input_load = st.sidebar.slider('نسبة الحمل الكهربائي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 95, step=1)
+    # 🧠 الحسم الجذري: استبدال السلايدرز المعكوسة بصناديق إدخال رقمية نيون دقيقة ومستقرة 100% سحابياً
+    input_temp = st.sidebar.number_input('أدخل قراءة درجة الحرارة الكلية (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
+    input_load = st.sidebar.number_input('أدخل نسبة الحمل الكهربائي الحالية (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 95, step=1)
     
     is_fault_triggered = 0
     if simulation_mode == 'افتعال عطل وقصر كهربائي مفاجئ' or input_temp > 95 or input_load > 90:
