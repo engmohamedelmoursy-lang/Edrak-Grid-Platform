@@ -75,13 +75,25 @@ with tab1:
     ])
     fault_select = st.sidebar.selectbox('حدد المحطة المستهدفة بالمعالجة الآلية:', [f'Sub_{i}' for i in range(1, 11)], index=4)
     
-    # صناديق الإدخال النيون الفاخرة والمعربة كلياً بدلاً من السلايدرز المقلوبة لضمان الانضباط والسرعة
-    input_temp = st.sidebar.number_input('أدخل قراءة درجة الحرارة الكلية للمحول (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
-    input_load = st.sidebar.number_input('أدخل نسبة الحمل الكهربائي الحالي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 95, step=1)
+        # تعديل ذكي لفصل قيم المدخلات آلياً حسب نوع المحاكاة لمنع التداخل البصري
+    default_temp = 72
+    default_load = 60
     
+    if simulation_mode == 'افتعال عطل وقصر كهربائي مفاجئ':
+        default_temp = 105
+        default_load = 95
+    elif simulation_mode == 'دخول تدفق طاقة شمسية مفاجئ (Microgrid)':
+        default_temp = 78   # حرارة طبيعية وآمنة أثناء تدفق الطاقة الشمسية
+        default_load = 82   # حمل تشغيلي آمن ومتزن بفضل GAMS 54
+        
+    input_temp = st.sidebar.number_input('أدخل قراءة درجة الحرارة الكلية للمحول (°C):', min_value=50, max_value=120, value=default_temp, step=1)
+    input_load = st.sidebar.number_input('أدخل نسبة الحمل الكهربائي الحالي على الباص (%):', min_value=40, max_value=110, value=default_load, step=1)
+    
+    # حصر وتدقيق شرط العطل ليعمل فقط في حالة افتعال العطل أو الارتفاع الفعلي للمدخلات يدوياً
     is_fault_triggered = 0
-    if simulation_mode == 'افتعال عطل وقصر كهربائي مفاجئ' or input_temp > 95 or input_load > 90:
+    if simulation_mode == 'افتعال عطل وقصر كهربائي مفاجئ' or (simulation_mode != 'دخول تدفق طاقة شمسية مفاجئ (Microgrid)' and (input_temp > 95 or input_load > 90)):
         is_fault_triggered = 1
+
     
     col_m1, col_m2, col_m3 = st.columns(3)
     if simulation_mode == 'دخول تدفق طاقة شمسية مفاجئ (Microgrid)' and is_fault_triggered == 0:
