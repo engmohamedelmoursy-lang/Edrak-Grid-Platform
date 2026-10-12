@@ -60,7 +60,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<h1 style="color: #00ffcc; text-shadow: 0 0 15px rgba(0,255,204,0.4); margin-bottom: 0;">⚡ إدراك | EDRAK</h1>', unsafe_allow_html=True)
-st.markdown('<h3>نظام إدراكي تنبؤي ذاتي الشفاء لشبكات الكهرباء الكهربائية | RG ENERGY</h3>', unsafe_allow_html=True)
+st.markdown('<h3>نظام إدراكي تنبؤي ذاتي الشفاء لشبكات الكهرباء  | RG ENERGY</h3>', unsafe_allow_html=True)
 st.markdown('<hr style="border-color: #1f2937;">', unsafe_allow_html=True)
 
 # تأسيس التبويبات الفاخرة الموحدة للواجهة المعربة
