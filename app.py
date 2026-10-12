@@ -1,19 +1,22 @@
-# [الجزء الأول] كود التأسيس السحابي المطور بصناديق الإدخال الرقمية - شركة RG ENERGY
+# ===============================================================================
+# [الجزء الأول] كود التأسيس والعدادات الرقمية والمحاكاة الحية - منصة إدراك
+# المالك والمخترع الرئيسي: المهندس محمد إبراهيم المرسي | شركة RG ENERGY
+# ===============================================================================
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 1. الإعدادات القيادية للمنصة وتوسيع الشاشة بالكامل
+# 1. الإعدادات القيادية للمنصة وتوسيع الشاشة بالكامل تماشياً مع أنظمة التحكم الصناعية
 st.set_page_config(page_title="RG ENERGY - Edrak Intelligent Control", layout="wide", initial_sidebar_state="expanded")
 
-# شفرة CSS المتقدمة السحابية لحقن المظهر المظلم المضيء وتنسيق صناديق الإدخال والعدادات
+# شفرة CSS المتقدمة السحابية لحقن المظهر المظلم المضيء وتنسيق صناديق الإدخال والعدادات باللغة العربية
 st.markdown("""
     <style>
-    /* التنسيق العام المظلم والفاخر لغرف التحكم */
+    /* التنسيق العام المظلم والفاخر لغرف التحكم القيادية */
     .stApp { background-color: #060913 !important; color: #e6edf3 !important; font-family: sans-serif; }
     
-    /* فرض المحاذاة العربية للمنصة من اليمين إلى اليسار للتبويبات والجداول والعناوين */
+    /* فرض المحاذاة العربية الكاملة من اليمين إلى اليسار لجميع عناصر الواجهة سحابياً */
     .stApp, div[data-testid='stTable'], .stTabs, div[role='tablist'], h1, h2, h3, p, li, div[data-testid='stMarkdownContainer'] {
         direction: RTL !important; text-align: right !important;
     }
@@ -25,7 +28,7 @@ st.markdown("""
     }
     div[data-testid='stSidebar'] [data-testid='stMarkdownContainer'] p { color: #00ffcc !important; font-weight: bold !important; }
     
-    /* ⚡ تنسيق صناديق الإدخال الرقمية النيون لتظهر بأعلى فخامة بصرية وسهولة تامة في القراءة */
+    /* تنسيق صناديق الإدخال الرقمية لـ Cyber Number Input Boxes لسهولة القراءة والتحكم المطلق */
     div[data-testid='stNumberInput'] input {
         background-color: #0d1321 !important;
         color: #00ffcc !important;
@@ -36,7 +39,7 @@ st.markdown("""
         text-align: center !important;
     }
     
-    /* كروت المؤشرات الحيوية النيون */
+    /* كروت المؤشرات الحيوية والعدادات النيون المضيئة */
     div[data-testid='stMetric'] {
         background-color: #0d1321 !important; border: 1px solid #1f2937 !important; border-radius: 12px !important;
         padding: 20px !important; box-shadow: 0 0 15px rgba(0, 255, 204, 0.15) !important;
@@ -45,7 +48,7 @@ st.markdown("""
     button[data-baseweb='tab'] { font-size: 16px !important; font-weight: bold !important; color: #8b949e !important; }
     button[aria-selected='true'] { color: #00ffcc !important; border-bottom-color: #00ffcc !important; }
     
-    /* كروت الأمن السيبراني عالية النصوع */
+    /* كروت الأمان السيبراني الفاخرة المحدثة عالية التباين والنصوع */
     .cyber-command-card {
         background: linear-gradient(135deg, #0d1321 0%, #111a2e 100%) !important;
         border-right: 4px solid #00ffcc !important; border-top: 1px solid #1f2937 !important;
@@ -57,9 +60,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<h1 style="color: #00ffcc; text-shadow: 0 0 15px rgba(0,255,204,0.4); margin-bottom: 0;">⚡ إدراك | EDRAK</h1>', unsafe_allow_html=True)
-st.markdown('<h3>نظام إدراكي تنبؤي ذاتي الشفاء لشبكات الكهرباء | RG ENERGY</h3>', unsafe_allow_html=True)
+st.markdown('<h3>نظام إدراكي تنبؤي ذاتي الشفاء لشبكات الكهرباء الكهربائية | RG ENERGY</h3>', unsafe_allow_html=True)
 st.markdown('<hr style="border-color: #1f2937;">', unsafe_allow_html=True)
 
+# تأسيس التبويبات الفاخرة الموحدة للواجهة المعربة
 tab1, tab2, tab3 = st.tabs(['🎮 شاشة التوأم الرقمي والمحاكاة الحية', '📊 الجدوى والتحليل التنافسي والمالي', '🛡️ بروتوكولات الأمن السيبراني والمخاطر'])
 
 with tab1:
@@ -71,9 +75,9 @@ with tab1:
     ])
     fault_select = st.sidebar.selectbox('حدد المحطة المستهدفة بالمعالجة الآلية:', [f'Sub_{i}' for i in range(1, 11)], index=4)
     
-    # 🧠 الحسم الجذري: استبدال السلايدرز المعكوسة بصناديق إدخال رقمية نيون دقيقة ومستقرة 100% سحابياً
-    input_temp = st.sidebar.number_input('أدخل قراءة درجة الحرارة الكلية (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
-    input_load = st.sidebar.number_input('أدخل نسبة الحمل الكهربائي الحالية (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 95, step=1)
+    # صناديق الإدخال النيون الفاخرة والمعربة كلياً بدلاً من السلايدرز المقلوبة لضمان الانضباط والسرعة
+    input_temp = st.sidebar.number_input('أدخل قراءة درجة الحرارة الكلية للمحول (°C):', min_value=50, max_value=120, value=72 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 105, step=1)
+    input_load = st.sidebar.number_input('أدخل نسبة الحمل الكهربائي الحالي على الباص (%):', min_value=40, max_value=110, value=60 if simulation_mode == 'حالة تشغيل مستقرة آمنة' else 95, step=1)
     
     is_fault_triggered = 0
     if simulation_mode == 'افتعال عطل وقصر كهربائي مفاجئ' or input_temp > 95 or input_load > 90:
@@ -82,19 +86,19 @@ with tab1:
     col_m1, col_m2, col_m3 = st.columns(3)
     if simulation_mode == 'دخول تدفق طاقة شمسية مفاجئ (Microgrid)' and is_fault_triggered == 0:
         with col_m1: st.metric(label='🧠 مؤشر اتزان الشبكة (AI)', value='98%', delta='+3% (تكامل الطاقة النظيفة)', delta_color='normal')
-        with col_m2: st.metric(label='📈 كفاءة تدفق الحمل (GAMS)', value='99.4%', delta='تشغيل نظام موازنة القدرة العكسية')
+        with col_m2: st.metric(label='📈 كفاءة تدفق الحمل (GAMS 54)', value='99.4%', delta='تشغيل نظام موازنة القدرة العكسية')
         with col_m3: st.metric(label='💡 إجمالي المفاقيد الكهربائية للخطوط', value='0.35%', delta='-0.17% (كفاءة قصوى بفضل GAMS)', delta_color='normal')
         st.warning(f'☀️ إنذار تشغيلي: تم رصد تدفق طاقة عكسي مفاجئ نتيجة توليد عالي من الخلايا الشمسية في المحطة ({fault_select})!')
         st.success('🟢 استجابة حاسمة مستقلة! استدعت منصة إدراك خوارزمية الأمثلة الرياضية في GAMS وضبطت اتزان التغذية اللامركزية في أقل من 15 ثانية.')
     elif is_fault_triggered == 1:
         with col_m1: st.metric(label='🧠 مؤشر صحة الشبكة الكلي (AI)', value='94%', delta='-6% (تراجع حرج)', delta_color='inverse')
-        with col_m2: st.metric(label='📈 كفاءة تدفق الحمل (GAMS)', value='99.1%', delta='عزل آلي وموازنة التدفق')
+        with col_m2: st.metric(label='📈 كفاءة تدفق الحمل (GAMS 54)', value='99.1%', delta='عزل آلي وموازنة التدفق')
         with col_m3: st.metric(label='💡 إجمالي المفاقيد الكهربائية للخطوط', value='0.90%', delta='+0.50% (ارتفاع حاد)', delta_color='inverse')
         st.error(f'🚨 إنذار استباقي فوري: تم رصد مؤشرات حرجة وقصر كهربائي (Short Circuit) في المحطة الفرعية ({fault_select})!')
         st.success('🟢 نجاح الشفاء الذاتي الآلي المستقل (Autonomous FLISR SUCCESS)! استجاب محرك GAMS 54 وعزل الخلل آلياً في أقل من 30 ثانية وبأدنى مفاقيد طاقة.')
     else:
         with col_m1: st.metric(label='🧠 مؤشر صحة الشبكة الكلي (AI)', value='100%', delta='مستقر وآمن', delta_color='normal')
-        with col_m2: st.metric(label='📈 كفاءة تدفق الحمل (GAMS)', value='99.6%', delta='نطاق تشغيلي مثالي', delta_color='normal')
+        with col_m2: st.metric(label='📈 كفاءة تدفق الحمل (GAMS 54)', value='99.6%', delta='نطاق تشغيلي مثالي', delta_color='normal')
         with col_m3: st.metric(label='💡 إجمالي المفاقيد الكهربائية للخطوط', value='0.40%', delta='-0.12% تحسين مستمر', delta_color='normal')
         st.success('🟢 شبكة التوزيع آمنة وتعمل بكفاءة هندسية مطلقة؛ جميع خطوط التغذية والمحولات العشر تعمل ضمن النطاق الآمن.')
     st.markdown('<h3 style="color: #00ffcc;">🗺️ المخطط الهندسي لخطوط التغذية الحية ومسارات الشفاء الذاتي (Network Topology)</h3>', unsafe_allow_html=True)
@@ -114,7 +118,7 @@ with tab1:
         if is_fault_triggered and (substations_list[i] == fault_select or substations_list[i+1] == fault_select):
             c = '#ff3333'; l_style = '--'; l_width = 3.0  # وميض أحمر يعكس عزل منطقة الخلل آلياً
         else:
-            c = '#00ffcc'; l_style = '-'; l_width = 2.0   # أخضر نيون يعكس تدفق أمثلة GAMS المستقرة
+            c = '#00ffcc'; l_style = '-'; l_width = 2.0   # أخضر نيون يعكس تدفق الطاقة المستقرة
         ax_map.plot([station_lon[i], station_lon[i+1]], [station_lat[i], station_lat[i+1]], color=c, linestyle=l_style, linewidth=l_width, zorder=3)
     
     # 2. إسقاط عقد المحطات العشر المضيئة حياً
@@ -193,7 +197,7 @@ with tab3:
     st.markdown('''
     <div class='cyber-command-card'>
         <div class='cyber-card-title'>🔒 1. جدار الحماية ضد الاختراق وحقن البيانات المفاجئ (Cyber Security)</div>
-        <div class='cyber-command-card-text' style='color: #ffffff !important; line-height: 1.7; text-align: right;'>يتم تشفير قنوات اتصال الحساسات والـ PMUs بالكامل (End-to-End Encryption) لمنع التلاعب بالقراءات الحرارية، مع تفعيل بروتوكول التحقق الثنائي الفيزيائي اللحظي لمقارنة التنبؤ الحراري باتزان اتجاهات الطاقة في محرك GAMS.</div>
+        <div class='cyber-command-card-text' style='color: #ffffff !important; line-height: 1.7; text-align: right;'>يتم تشفير قنوات اتصال الحساسات والـ PMUs بالكامل (End-to-End Encryption) لمنع التلاعب بالقراءات الحرارية، مع تفعيل بروتوكول التحقق الثنائي الفيزيائي اللحظي لمقارنة التنبؤ الحراري باتزان اتجاهات الطاقة في محرك GAMS 54.</div>
     </div>
     <div class='cyber-command-card'>
         <div class='cyber-card-title'>📡 2. خطة الاتصال البديل الفوري عند انقطاع الإشارة (Redundancy)</div>
