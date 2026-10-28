@@ -169,7 +169,7 @@ with tab1:
     st.pyplot(fig_v)
     
     status_list = ['🚨 FAULT / ISOLATED' if is_fault_triggered and s == fault_select else ('☀️ Renewable Active' if simulation_mode == 'دخول تدفق طاقة شمسية مفاجئ (Microgrid)' and s == fault_select else '🟢 Active') for s in substations_list]
-    grid_map_data = {'اسم المحطة الفرعية': substations_list, 'الموقع الجغرافي': [f'القطاع {i}' for i in range(1, 11)], 'مستوى جهد التوزيع': ['11 kV'] * 10, 'الحالة التشغيلية حياً': status_list}
+    grid_map_data = {'اسم المحطة الفرعية': substations_list, 'الموقع الجغرافي': [f'القطاع {i}' for i in range(1, 11)], 'مستوى جهد التوزيع': ['13.8 kV'] * 10, 'الحالة التشغيلية حياً': status_list}
     st.table(pd.DataFrame(grid_map_data))
 
 with tab2:
